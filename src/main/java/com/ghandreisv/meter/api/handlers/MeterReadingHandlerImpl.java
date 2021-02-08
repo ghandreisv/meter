@@ -35,12 +35,12 @@ public abstract class MeterReadingHandlerImpl implements MeterReadingHandler {
     @Override
     public String handle(MeterReadingDto meterReadingDto) {
         String sourceEntityId = getSourceEntityId(meterReadingDto);
-        getReadingExistenceValidator().accept(sourceEntityId, meterReadingDto.getDate().withDayOfMonth(1));
+        getReadingExistenceValidator().accept(sourceEntityId, meterReadingDto.getDate().atDay(1));
         Meter meter = getMeterFinder().apply(sourceEntityId);
         MeterReading meterReading = new MeterReading(
                 identityProvider.createIdentity(),
                 meter,
-                meterReadingDto.getDate().withDayOfMonth(1),
+                meterReadingDto.getDate().atDay(1),
                 meterReadingDto.getValue()
         );
         return meterReadingRepository.save(meterReading).getId();

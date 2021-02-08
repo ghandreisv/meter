@@ -15,8 +15,8 @@ public class MeterReadingHandlerSupplier implements Function<MeterReadingDto, Me
     private final MeterReadingHandler byMeterHandler;
 
     public MeterReadingHandlerSupplier(@Qualifier("byClientHandler") MeterReadingHandler byClientHandler,
-                                       @Qualifier("byClientHandler") MeterReadingHandler byAddressHandler,
-                                       @Qualifier("byClientHandler") MeterReadingHandler byMeterHandler) {
+                                       @Qualifier("byAddressHandler") MeterReadingHandler byAddressHandler,
+                                       @Qualifier("byMeterHandler") MeterReadingHandler byMeterHandler) {
         this.byClientHandler = byClientHandler;
         this.byAddressHandler = byAddressHandler;
         this.byMeterHandler = byMeterHandler;

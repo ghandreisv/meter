@@ -3,7 +3,7 @@ package com.ghandreisv.meter.api.dto;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
-import java.time.LocalDate;
+import java.time.YearMonth;
 
 @Data
 public class MeterReadingDto {
@@ -12,7 +12,7 @@ public class MeterReadingDto {
     String clientId;
     String addressId;
     @NotNull
-    LocalDate date;
+    YearMonth date;
     @NotNull
     Long value;
 }
