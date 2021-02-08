@@ -18,7 +18,6 @@ import java.util.stream.Collectors;
 @ControllerAdvice
 public class RestResponseExceptionHandler extends ResponseEntityExceptionHandler {
 
-
     @ExceptionHandler(EntityNotFoundException.class)
     public ResponseEntity<ErrorDto> handleNotFound(EntityNotFoundException exception) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorDto(exception.getMessage()));
@@ -26,6 +25,11 @@ public class RestResponseExceptionHandler extends ResponseEntityExceptionHandler
 
     @ExceptionHandler(MeterReadingAlreadyExistsException.class)
     public ResponseEntity<ErrorDto> handleNotFound(MeterReadingAlreadyExistsException exception) {
+        return ResponseEntity.badRequest().body(new ErrorDto(exception.getMessage()));
+    }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<ErrorDto> handleIllegalArgumentException(IllegalArgumentException exception) {
         return ResponseEntity.badRequest().body(new ErrorDto(exception.getMessage()));
     }
 
