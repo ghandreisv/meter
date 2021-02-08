@@ -10,5 +10,4 @@ public class MeterReadingsReportDto {
     Integer year;
     Long total;
     Map<Month, Long> monthly;
-
 }
