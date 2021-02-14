@@ -3,7 +3,7 @@ package com.ghandreisv.meter.api.reports;
 import com.ghandreisv.meter.api.dto.DetailedYearlyReportDto;
 import com.ghandreisv.meter.api.dto.MonthlyRecordDto;
 import com.ghandreisv.meter.api.dto.YearlyReportDto;
-import com.ghandreisv.meter.model.projection.MonthlyRecordProjection;
+import com.ghandreisv.meter.model.MonthlyRecordProjection;
 import org.springframework.stereotype.Component;
 
 import java.time.Month;

@@ -1,6 +1,6 @@
 package com.ghandreisv.meter.repository;
 
-import com.ghandreisv.meter.model.projection.MonthlyRecordProjection;
+import com.ghandreisv.meter.model.MonthlyRecordProjection;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;

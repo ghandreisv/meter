@@ -1,4 +1,4 @@
-package com.ghandreisv.meter.model.projection;
+package com.ghandreisv.meter.model;
 
 import java.time.LocalDate;
 

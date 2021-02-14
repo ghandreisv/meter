@@ -4,7 +4,7 @@ import com.ghandreisv.meter.api.dto.MonthlyReportDto;
 import com.ghandreisv.meter.api.dto.YearlyReportDto;
 import com.ghandreisv.meter.api.reports.DetailedYearlyReportCreator;
 import com.ghandreisv.meter.api.reports.YearlyReportCreator;
-import com.ghandreisv.meter.model.projection.MonthlyRecordProjection;
+import com.ghandreisv.meter.model.MonthlyRecordProjection;
 import com.ghandreisv.meter.repository.MeterReadingRepository;
 import org.springframework.stereotype.Service;
 

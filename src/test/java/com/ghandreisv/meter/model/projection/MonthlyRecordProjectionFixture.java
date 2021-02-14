@@ -1,5 +1,7 @@
 package com.ghandreisv.meter.model.projection;
 
+import com.ghandreisv.meter.model.MonthlyRecordProjection;
+
 import java.time.LocalDate;
 
 public class MonthlyRecordProjectionFixture {
