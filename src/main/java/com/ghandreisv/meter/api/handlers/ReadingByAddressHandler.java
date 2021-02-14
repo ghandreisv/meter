@@ -30,11 +30,11 @@ public class ReadingByAddressHandler extends MeterReadingHandlerImpl {
 
     @Override
     protected BiConsumer<String, LocalDate> getReadingExistenceValidator() {
-        return (addressId, date) -> meterReadingRepository.findByAddressAndDate(addressId, date)
-                .ifPresent(id -> {
-                    //TODO: use id
-                    throw new MeterReadingAlreadyExistsException(addressId, Address.ENTITY_TYPE, date);
-                });
+        return (addressId, date) -> {
+            if (meterReadingRepository.existsByAddressAndDate(addressId, date)) {
+                throw new MeterReadingAlreadyExistsException(addressId, Address.ENTITY_TYPE, date);
+            }
+        };
     }
 
     @Override

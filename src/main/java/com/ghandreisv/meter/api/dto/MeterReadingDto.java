@@ -13,7 +13,7 @@ public class MeterReadingDto {
     String clientId;
     String addressId;
     @NotNull(message = "'date' {javax.validation.constraints.NotNull.message}")
-    YearMonth date;
+    YearMonth yearMonth;
     @NotNull(message = "'value' {javax.validation.constraints.NotNull.message}")
     Long value;
 }

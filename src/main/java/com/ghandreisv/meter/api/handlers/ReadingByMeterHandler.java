@@ -29,10 +29,11 @@ public class ReadingByMeterHandler extends MeterReadingHandlerImpl {
 
     @Override
     protected BiConsumer<String, LocalDate> getReadingExistenceValidator() {
-        return (meterId, date) -> meterReadingRepository.findByMeterIdAndDate(meterId, date)
-                .ifPresent(id -> {
-                    throw new MeterReadingAlreadyExistsException(meterId, Meter.ENTITY_TYPE, date);
-                });
+        return (meterId, date) -> {
+            if (meterReadingRepository.existsByMeterIdAndDate(meterId, date)) {
+                throw new MeterReadingAlreadyExistsException(meterId, Meter.ENTITY_TYPE, date);
+            }
+        };
     }
 
     @Override

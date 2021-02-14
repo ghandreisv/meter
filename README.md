@@ -53,14 +53,14 @@ The solution is build as a Spring Boot application:
     * meter id;
     * address id;
     * client id.
-  * reading date as year month value e.g. "2021-01"
+  * reading month as year month value e.g. "2021-01"
   * reading value, expected an integer value
 * the response contains the id of newly created meter reading record; 
 * sample request payload:
 ```json5
 {
   "addressId":"0ad46436-532d-4bfb-92e6-654e036b6cda",
-  "date":"2021-02",
+  "yearMonth":"2021-02",
   "value": 11
 }
 ```

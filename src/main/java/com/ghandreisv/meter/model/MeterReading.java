@@ -13,6 +13,8 @@ import java.time.LocalDate;
 @EqualsAndHashCode
 @ToString
 public class MeterReading {
+    public static final String ENTITY_TYPE = "Meter Reading";
+
     @Id
     private String id;
     @ManyToOne

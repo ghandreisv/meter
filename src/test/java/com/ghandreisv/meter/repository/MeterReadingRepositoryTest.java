@@ -1,6 +1,5 @@
 package com.ghandreisv.meter.repository;
 
-import com.ghandreisv.meter.model.projection.MeterReadingId;
 import com.ghandreisv.meter.model.projection.MonthlyRecordProjection;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -24,30 +23,45 @@ class MeterReadingRepositoryTest {
     private MeterReadingRepository meterReadingRepository;
 
     @Test
-    void findByClientAndDate() {
-        String expectedReadingId = "77188b30-a5bb-4f63-b36c-20d2ec1bb911";
-        Optional<MeterReadingId> meterReadingId = meterReadingRepository
-                .findByClientAndDate("5d4a1603-5456-4340-9e1f-fb6861573570", LocalDate.of(2019, 1, 1));
-        assertTrue(meterReadingId.isPresent());
-        assertEquals(expectedReadingId, meterReadingId.get().getId());
+    void existsByClientAndDate() {
+        boolean exists = meterReadingRepository
+                .existsByClientAndDate("5d4a1603-5456-4340-9e1f-fb6861573570", LocalDate.of(2019, 1, 1));
+        assertTrue(exists);
     }
 
     @Test
-    void findByAddressAndDate() {
-        String expectedReadingId = "77188b30-a5bb-4f63-b36c-20d2ec1bb911";
-        Optional<MeterReadingId> meterReadingId = meterReadingRepository
-                .findByAddressAndDate("0ad46436-532d-4bfb-92e6-654e036b6cda", LocalDate.of(2019, 1, 1));
-        assertTrue(meterReadingId.isPresent());
-        assertEquals(expectedReadingId, meterReadingId.get().getId());
+    void existsByClientAndDate_not_found() {
+        boolean exists = meterReadingRepository
+                .existsByClientAndDate("not existing id", LocalDate.of(2019, 1, 1));
+        assertFalse(exists);
     }
 
     @Test
-    void findByMeterIdAndDate() {
-        String expectedReadingId = "77188b30-a5bb-4f63-b36c-20d2ec1bb911";
-        Optional<MeterReadingId> meterReadingId = meterReadingRepository
-                .findByMeterIdAndDate("4758677d-bb43-4f21-9bdf-98349b30003e", LocalDate.of(2019, 1, 1));
-        assertTrue(meterReadingId.isPresent());
-        assertEquals(expectedReadingId, meterReadingId.get().getId());
+    void existsByAddressAndDate() {
+        boolean exists = meterReadingRepository
+                .existsByAddressAndDate("0ad46436-532d-4bfb-92e6-654e036b6cda", LocalDate.of(2019, 1, 1));
+        assertTrue(exists);
+    }
+
+    @Test
+    void existsByAddressAndDate_not_found() {
+        boolean exists = meterReadingRepository
+                .existsByAddressAndDate("not existing id", LocalDate.of(2019, 1, 1));
+        assertFalse(exists);
+    }
+
+    @Test
+    void existsByMeterIdAndDate() {
+        boolean exists = meterReadingRepository
+                .existsByMeterIdAndDate("4758677d-bb43-4f21-9bdf-98349b30003e", LocalDate.of(2019, 1, 1));
+        assertTrue(exists);
+    }
+
+    @Test
+    void existsByMeterIdAndDate_not_found() {
+        boolean exists = meterReadingRepository
+                .existsByMeterIdAndDate("not existing id", LocalDate.of(2019, 1, 1));
+        assertFalse(exists);
     }
 
     @Test
