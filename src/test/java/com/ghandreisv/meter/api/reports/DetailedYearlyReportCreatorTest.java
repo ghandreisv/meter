@@ -2,8 +2,8 @@ package com.ghandreisv.meter.api.reports;
 
 import com.ghandreisv.meter.api.dto.DetailedYearlyReportDto;
 import com.ghandreisv.meter.api.dto.MonthlyRecordDto;
-import com.ghandreisv.meter.model.MonthlyRecordProjection;
-import com.ghandreisv.meter.model.projection.MonthlyRecordProjectionFixture;
+import com.ghandreisv.meter.service.report.MonthlyRecordProjection;
+import com.ghandreisv.meter.service.report.MonthlyRecordProjectionFixture;
 import org.junit.jupiter.api.Test;
 
 import java.time.Month;

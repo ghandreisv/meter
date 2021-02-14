@@ -1,6 +1,4 @@
-package com.ghandreisv.meter.model.projection;
-
-import com.ghandreisv.meter.model.MonthlyRecordProjection;
+package com.ghandreisv.meter.service.report;
 
 import java.time.Month;
 

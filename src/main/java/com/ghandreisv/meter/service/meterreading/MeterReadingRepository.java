@@ -1,6 +1,6 @@
 package com.ghandreisv.meter.service.meterreading;
 
-import com.ghandreisv.meter.model.MonthlyRecordProjection;
+import com.ghandreisv.meter.service.report.MonthlyRecordProjection;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;

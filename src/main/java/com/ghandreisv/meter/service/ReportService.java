@@ -1,7 +1,7 @@
 package com.ghandreisv.meter.service;
 
-import com.ghandreisv.meter.model.MonthlyRecordProjection;
 import com.ghandreisv.meter.service.meterreading.MeterReadingRepository;
+import com.ghandreisv.meter.service.report.MonthlyRecordProjection;
 import org.springframework.stereotype.Service;
 
 import java.time.Month;

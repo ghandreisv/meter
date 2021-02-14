@@ -1,7 +1,7 @@
 package com.ghandreisv.meter.repository;
 
-import com.ghandreisv.meter.model.MonthlyRecordProjection;
 import com.ghandreisv.meter.service.meterreading.MeterReadingRepository;
+import com.ghandreisv.meter.service.report.MonthlyRecordProjection;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;

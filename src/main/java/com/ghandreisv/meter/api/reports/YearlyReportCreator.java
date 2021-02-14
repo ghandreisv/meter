@@ -1,7 +1,7 @@
 package com.ghandreisv.meter.api.reports;
 
 import com.ghandreisv.meter.api.dto.YearlyReportDto;
-import com.ghandreisv.meter.model.MonthlyRecordProjection;
+import com.ghandreisv.meter.service.report.MonthlyRecordProjection;
 import org.springframework.stereotype.Component;
 
 import java.time.Year;

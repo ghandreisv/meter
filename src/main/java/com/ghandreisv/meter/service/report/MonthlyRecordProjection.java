@@ -1,4 +1,4 @@
-package com.ghandreisv.meter.model;
+package com.ghandreisv.meter.service.report;
 
 import java.time.Month;
 

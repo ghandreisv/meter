@@ -1,8 +1,8 @@
 package com.ghandreisv.meter.service;
 
-import com.ghandreisv.meter.model.MonthlyRecordProjection;
-import com.ghandreisv.meter.model.projection.MonthlyRecordProjectionFixture;
 import com.ghandreisv.meter.service.meterreading.MeterReadingRepository;
+import com.ghandreisv.meter.service.report.MonthlyRecordProjection;
+import com.ghandreisv.meter.service.report.MonthlyRecordProjectionFixture;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
