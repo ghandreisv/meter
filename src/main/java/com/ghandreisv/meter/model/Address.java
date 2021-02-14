@@ -2,7 +2,9 @@ package com.ghandreisv.meter.model;
 
 import lombok.*;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "ADDRESSES")
@@ -10,7 +12,7 @@ import javax.persistence.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @EqualsAndHashCode
-@ToString(exclude = "meter")
+@ToString()
 public class Address {
     public static final String ENTITY_TYPE = "Address";
 
@@ -20,10 +22,4 @@ public class Address {
     private String houseNumber;
     private String city;
     private String country;
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinTable(name = "ADDRESSES_METERS",
-            joinColumns = { @JoinColumn(name = "address_id", referencedColumnName = "id")},
-            inverseJoinColumns = {@JoinColumn(name = "meter_id", referencedColumnName = "id")}
-    )
-    private Meter meter;
 }

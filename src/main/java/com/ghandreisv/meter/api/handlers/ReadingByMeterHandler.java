@@ -3,7 +3,6 @@ package com.ghandreisv.meter.api.handlers;
 import com.ghandreisv.meter.api.dto.MeterReadingDto;
 import com.ghandreisv.meter.api.exceptions.EntityNotFoundException;
 import com.ghandreisv.meter.api.exceptions.MeterReadingAlreadyExistsException;
-import com.ghandreisv.meter.model.Client;
 import com.ghandreisv.meter.model.Meter;
 import com.ghandreisv.meter.repository.MeterReadingRepository;
 import com.ghandreisv.meter.repository.MeterRepository;
@@ -32,7 +31,7 @@ public class ReadingByMeterHandler extends MeterReadingHandlerImpl {
     protected BiConsumer<String, LocalDate> getReadingExistenceValidator() {
         return (meterId, date) -> meterReadingRepository.findByMeterIdAndDate(meterId, date)
                 .ifPresent(id -> {
-                    throw new MeterReadingAlreadyExistsException(meterId, Client.ENTITY_TYPE, date);
+                    throw new MeterReadingAlreadyExistsException(meterId, Meter.ENTITY_TYPE, date);
                 });
     }
 

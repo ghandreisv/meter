@@ -1,37 +1,35 @@
 package com.ghandreisv.meter.api;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ghandreisv.meter.api.dto.MeterReadingsReportDto;
-import com.ghandreisv.meter.api.dto.ReportQueryDto;
-import com.ghandreisv.meter.api.propertyeditor.ReportQueryPropertyEditor;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.*;
+import com.ghandreisv.meter.api.dto.MonthlyReportDto;
+import com.ghandreisv.meter.api.dto.YearlyReportDto;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
+import java.time.Month;
+import java.time.Year;
 
 @RestController
-@RequestMapping("/report")
-@Validated
+@RequestMapping("/reports")
 public class ReportController {
 
-    private final ObjectMapper objectMapper;
     private final ReportService reportService;
 
-    public ReportController(ObjectMapper objectMapper, ReportService reportService) {
-        this.objectMapper = objectMapper;
+    public ReportController(ReportService reportService) {
         this.reportService = reportService;
     }
 
-    @InitBinder
-    public void initBinder(WebDataBinder webDataBinder) {
-        webDataBinder.registerCustomEditor(ReportQueryDto.class, new ReportQueryPropertyEditor(objectMapper));
+    @GetMapping("/yearly")
+    public YearlyReportDto getYearlyDetailedReport(@RequestParam("year") Year year,
+                                                   @RequestParam(value = "detailed", required = false, defaultValue = "false") Boolean detailed) {
+        return reportService.getYearlyReport(year, detailed);
     }
 
-    @GetMapping
-    public MeterReadingsReportDto getMeterReadingReport(@Valid @NotNull @RequestParam("json") ReportQueryDto reportQueryDto) {
-        return reportService.getReport(reportQueryDto);
+    @GetMapping("/monthly")
+    public MonthlyReportDto getMonthlyReport(@RequestParam("year") Year year,
+                                             @RequestParam("month") Month month) {
+        return reportService.getMonthlyReport(year, month);
     }
 
 }

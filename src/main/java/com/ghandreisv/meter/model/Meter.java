@@ -2,10 +2,7 @@ package com.ghandreisv.meter.model;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "METERS")
@@ -19,6 +16,7 @@ public class Meter {
 
     @Id
     private String id;
-    @OneToOne(mappedBy = "meter")
+    @OneToOne
+    @JoinColumn(name = "ADDRESS_ID")
     private Address address;
 }

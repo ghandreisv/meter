@@ -4,7 +4,6 @@ import com.ghandreisv.meter.api.dto.MeterReadingDto;
 import com.ghandreisv.meter.api.exceptions.EntityNotFoundException;
 import com.ghandreisv.meter.api.exceptions.MeterReadingAlreadyExistsException;
 import com.ghandreisv.meter.model.Address;
-import com.ghandreisv.meter.model.Client;
 import com.ghandreisv.meter.model.Meter;
 import com.ghandreisv.meter.repository.MeterReadingRepository;
 import com.ghandreisv.meter.repository.MeterRepository;
@@ -33,7 +32,8 @@ public class ReadingByAddressHandler extends MeterReadingHandlerImpl {
     protected BiConsumer<String, LocalDate> getReadingExistenceValidator() {
         return (addressId, date) -> meterReadingRepository.findByAddressAndDate(addressId, date)
                 .ifPresent(id -> {
-                    throw new MeterReadingAlreadyExistsException(addressId, Client.ENTITY_TYPE, date);
+                    //TODO: use id
+                    throw new MeterReadingAlreadyExistsException(addressId, Address.ENTITY_TYPE, date);
                 });
     }
 

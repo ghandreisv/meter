@@ -1,47 +1,44 @@
 package com.ghandreisv.meter.api;
 
-import com.ghandreisv.meter.api.dto.MeterReadingsReportDto;
-import com.ghandreisv.meter.api.dto.ReportQueryDto;
-import com.ghandreisv.meter.model.projection.MonthlyReportProjection;
+import com.ghandreisv.meter.api.dto.MonthlyReportDto;
+import com.ghandreisv.meter.api.dto.YearlyReportDto;
+import com.ghandreisv.meter.api.reports.DetailedYearlyReportCreator;
+import com.ghandreisv.meter.api.reports.YearlyReportCreator;
+import com.ghandreisv.meter.model.projection.MonthlyRecordProjection;
 import com.ghandreisv.meter.repository.MeterReadingRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.Month;
+import java.time.Year;
 import java.time.YearMonth;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
 @Service
 public class ReportService {
 
     private final MeterReadingRepository meterReadingRepository;
+    private final YearlyReportCreator yearlyReportCreator;
+    private final DetailedYearlyReportCreator detailedYearlyReportCreator;
 
-    public ReportService(MeterReadingRepository meterReadingRepository) {
+
+    public ReportService(MeterReadingRepository meterReadingRepository,
+                         YearlyReportCreator yearlyReportCreator,
+                         DetailedYearlyReportCreator detailedYearlyReportCreator) {
         this.meterReadingRepository = meterReadingRepository;
+        this.yearlyReportCreator = yearlyReportCreator;
+        this.detailedYearlyReportCreator = detailedYearlyReportCreator;
     }
 
-    public MeterReadingsReportDto getReport(ReportQueryDto reportQueryDto) {
-        List<MonthlyReportProjection> report = new ArrayList<>();
-        if (reportQueryDto.getMonth() != null) {
-            meterReadingRepository.getMonthlyReport(
-                    YearMonth.of(
-                            reportQueryDto.getYear().getValue(),
-                            reportQueryDto.getMonth())
-            ).ifPresent(report::add);
-        } else {
-            report.addAll(meterReadingRepository.getYearlyReport(reportQueryDto.getYear()));
-        }
-        return createReport(report, reportQueryDto);
+    public YearlyReportDto getYearlyReport(Year year, Boolean detailed) {
+        List<MonthlyRecordProjection> records = meterReadingRepository.getYearlyRecords(year);
+        return detailed
+                ? detailedYearlyReportCreator.createReport(year, records)
+                : yearlyReportCreator.createReport(year, records);
     }
 
-    private MeterReadingsReportDto createReport(List<MonthlyReportProjection> reportRecords, ReportQueryDto reportQueryDto) {
-        Integer year = reportQueryDto.getYear().getValue();
-        Long total = reportQueryDto.getMonth() == null ? reportRecords.stream().mapToLong(MonthlyReportProjection::getTotal).sum() : null;
-        Map<Month, Long> monthly = Boolean.TRUE.equals(reportQueryDto.getDetailed())
-                ? reportRecords.stream().collect(Collectors.toMap(t -> t.getDate().getMonth(), MonthlyReportProjection::getTotal))
-                : null;
-        return new MeterReadingsReportDto(year, total, monthly);
+    public MonthlyReportDto getMonthlyReport(Year year, Month month) {
+        Optional<MonthlyRecordProjection> monthlyRecord = meterReadingRepository.getMonthlyRecord(YearMonth.of(year.getValue(), month));
+        return new MonthlyReportDto(year, month, monthlyRecord.map(MonthlyRecordProjection::getTotal).orElse(0L));
     }
 }

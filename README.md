@@ -18,32 +18,50 @@ The solution is build as a Spring Boot application:
 
 ### Usage
 ### Reports generation
-* in order to calculate readings report send a GET request to 
-  `http://localhost:8080/api/report`;
-* in order to provide report attributes use `json` parameter;
-* the parameter should be the JSON URL encoded representation of the bellow structure:
-```json
+#### Yearly Reports
+* endpoint URL `http://localhost:8080/api/reports/yearly`
+* query parameters:
+  * `year`: mandatory, number;
+  * `detailed`: optional, boolean, default `false`
+* sample request: `http://localhost:8080/api/reports/yearly?year=2020&detailed=false`
+* sample response:
+```json5
 {
-  "year": int, // mandatory
-  "month": int, // optional
-  "detailed": boolean // optional, default false
+  "year": 2020,
+  "total": 159
 }
 ```
-* example, request a detailed report for 2020-01: 
-  * non URL encoded `{ "year": 2020, "detailed":true, "month":1}`
-  * actual request: `http://localhost:8080/api/report?json=%7B%20%22year%22%3A%202020%2C%20%22detailed%22%3Atrue%2C%20%22month%22%3A1%7D`
-
-### Readings reporting
-* send a PUT request to `http://localhost:8080/api/report/readings`;
-* controller expect a DTO of structure:
-
-```json
+#### Monthly Reports
+* endpoint URL `http://localhost:8080/api/reports/monthly`
+* query parameters:
+  * `year`: mandatory, number;
+  * `month`: mandatory, month number or name e.g. `1` or `january`
+* sample request: `http://localhost:8080/api/reports/monthly?year=2020&month=january`
+* sample response:
+```json5
 {
-  // at least one id should be set
-  "meterId": String,
-  "addressId": String,
-  "clientId": String, 
-  "date": YearMonth // not null, ex. '2020-02'
-  "value": Long // not null
+  "year": 2020,
+  "month": "JANUARY",
+  "value": 23
 }
 ```
+
+### Adding a new meter readings
+* send a PUT request to `http://localhost:8080/api/meter-readings`;
+* the request payload is expected to be a JSON structure specifying:
+  * meter identification specified by one of the bellow identifiers in the order of listing (at least one should be present): 
+    * meter id;
+    * address id;
+    * client id.
+  * reading date as year month value e.g. "2021-01"
+  * reading value, expected an integer value
+* the response contains the id of newly created meter reading record; 
+* sample request payload:
+```json5
+{
+  "addressId":"0ad46436-532d-4bfb-92e6-654e036b6cda",
+  "date":"2021-02",
+  "value": 11
+}
+```
+* sample response: `4626c103-058f-4fbf-bf46-ef2e1dd613e7`

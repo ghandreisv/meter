@@ -23,4 +23,3 @@ public class Client {
     private Address address;
 
 }
-

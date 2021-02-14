@@ -1,7 +1,7 @@
 package com.ghandreisv.meter.repository;
 
 import com.ghandreisv.meter.model.projection.MeterReadingId;
-import com.ghandreisv.meter.model.projection.MonthlyReportProjection;
+import com.ghandreisv.meter.model.projection.MonthlyRecordProjection;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,8 +52,8 @@ class MeterReadingRepositoryTest {
 
     @Test
     void getMonthlyReport() {
-        Optional<MonthlyReportProjection> monthlyReport = meterReadingRepository
-                .getMonthlyReport(YearMonth.of(2019, 1));
+        Optional<MonthlyRecordProjection> monthlyReport = meterReadingRepository
+                .getMonthlyRecord(YearMonth.of(2019, 1));
         assertTrue(monthlyReport.isPresent());
         assertEquals(15, monthlyReport.get().getTotal());
         assertEquals(LocalDate.of(2019, 1, 1), monthlyReport.get().getDate());
@@ -61,8 +61,8 @@ class MeterReadingRepositoryTest {
 
     @Test
     void getMonthlyReport_missing_record() {
-        Optional<MonthlyReportProjection> monthlyReport = meterReadingRepository
-                .getMonthlyReport(YearMonth.of(2020, 9));
+        Optional<MonthlyRecordProjection> monthlyReport = meterReadingRepository
+                .getMonthlyRecord(YearMonth.of(2020, 9));
         assertFalse(monthlyReport.isPresent());
     }
 
@@ -82,7 +82,7 @@ class MeterReadingRepositoryTest {
     }
 
     private void testYearlyReport(int year, long expectedTotal) {
-        List<MonthlyReportProjection> yearlyReport = meterReadingRepository.getYearlyReport(Year.of(year));
-        assertEquals(expectedTotal, yearlyReport.stream().mapToLong(MonthlyReportProjection::getTotal).sum());
+        List<MonthlyRecordProjection> yearlyReport = meterReadingRepository.getYearlyRecords(Year.of(year));
+        assertEquals(expectedTotal, yearlyReport.stream().mapToLong(MonthlyRecordProjection::getTotal).sum());
     }
 }

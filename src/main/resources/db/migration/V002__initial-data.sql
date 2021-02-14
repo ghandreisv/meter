@@ -8,15 +8,10 @@ VALUES ('5d4a1603-5456-4340-9e1f-fb6861573570', 'John', 'Cena', '0ad46436-532d-4
 INSERT INTO CLIENTS (id, first_name, last_name, address_id)
 VALUES ('97ee3d5f-e84f-4274-bc1f-54474a77b3eb', 'Ayrton', 'Senna', '2fbd8b26-41ca-4f94-bc3f-b5d0cf759b51');
 
-INSERT INTO METERS (id)
-VALUES ('4758677d-bb43-4f21-9bdf-98349b30003e');
-INSERT INTO METERS (id)
-VALUES ('4a64d51d-b5f4-4193-aab0-a344db0ca8a4');
-
-INSERT INTO ADDRESSES_METERS (address_id, meter_id)
-VALUES ('0ad46436-532d-4bfb-92e6-654e036b6cda', '4758677d-bb43-4f21-9bdf-98349b30003e');
-INSERT INTO ADDRESSES_METERS (address_id, meter_id)
-VALUES ('2fbd8b26-41ca-4f94-bc3f-b5d0cf759b51', '4a64d51d-b5f4-4193-aab0-a344db0ca8a4');
+INSERT INTO METERS (id, address_id)
+VALUES ('4758677d-bb43-4f21-9bdf-98349b30003e', '0ad46436-532d-4bfb-92e6-654e036b6cda');
+INSERT INTO METERS (id, address_id)
+VALUES ('4a64d51d-b5f4-4193-aab0-a344db0ca8a4', '2fbd8b26-41ca-4f94-bc3f-b5d0cf759b51');
 
 -- readings for client 1
 INSERT INTO METER_READINGS (id, meter_id, date, value)
