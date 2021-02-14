@@ -28,7 +28,7 @@ public class DetailedYearlyReportCreator extends YearlyReportCreator {
 
     protected List<MonthlyRecordDto> createMonthlyRecordsDto(List<MonthlyRecordProjection> records) {
         Map<Month, MonthlyRecordDto> monthlyRecords = records.stream()
-                .map(p -> new MonthlyRecordDto(p.getDate().getMonth(), p.getTotal()))
+                .map(p -> new MonthlyRecordDto(p.getMonth(), p.getValue()))
                 .collect(Collectors.toMap(MonthlyRecordDto::getMonth, r -> r));
         Collection<MonthlyRecordDto> monthlyRecordDtoMap = Stream.of(monthlyRecords, EMPTY_MONTHLY_TOTALS)
                 .flatMap(map -> map.entrySet().stream())

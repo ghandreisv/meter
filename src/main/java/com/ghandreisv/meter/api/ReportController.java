@@ -2,6 +2,7 @@ package com.ghandreisv.meter.api;
 
 import com.ghandreisv.meter.api.dto.MonthlyReportDto;
 import com.ghandreisv.meter.api.dto.YearlyReportDto;
+import com.ghandreisv.meter.service.ReportService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;

@@ -3,6 +3,7 @@ package com.ghandreisv.meter.api.errorhandling;
 import com.ghandreisv.meter.api.dto.ErrorDto;
 import com.ghandreisv.meter.api.exceptions.EntityNotFoundException;
 import com.ghandreisv.meter.api.exceptions.MeterReadingAlreadyExistsException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -20,6 +21,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import java.util.stream.Collectors;
 
 @ControllerAdvice
+@Slf4j
 public class RestResponseExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(EntityNotFoundException.class)
@@ -44,7 +46,8 @@ public class RestResponseExceptionHandler extends ResponseEntityExceptionHandler
 
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<ErrorDto> handleMethodArgumentTypeMismatchException(RuntimeException exception) {
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErrorDto(exception.getMessage()));
+        log.error("Unexpected error", exception);
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErrorDto("Unknown error"));
     }
 
     @Override

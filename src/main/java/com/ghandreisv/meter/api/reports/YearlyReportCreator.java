@@ -11,7 +11,7 @@ import java.util.List;
 public class YearlyReportCreator {
 
     public YearlyReportDto createReport(Year year, List<MonthlyRecordProjection> records) {
-        Long total = records.stream().mapToLong(MonthlyRecordProjection::getTotal).sum();
+        Long total = records.stream().mapToLong(MonthlyRecordProjection::getValue).sum();
         return new YearlyReportDto(year, total);
     }
 }

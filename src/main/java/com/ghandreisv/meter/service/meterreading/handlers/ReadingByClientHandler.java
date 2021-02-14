@@ -1,12 +1,11 @@
-package com.ghandreisv.meter.api.handlers;
+package com.ghandreisv.meter.service.meterreading.handlers;
 
-import com.ghandreisv.meter.api.dto.MeterReadingDto;
 import com.ghandreisv.meter.api.exceptions.EntityNotFoundException;
 import com.ghandreisv.meter.api.exceptions.MeterReadingAlreadyExistsException;
-import com.ghandreisv.meter.model.Client;
-import com.ghandreisv.meter.model.Meter;
-import com.ghandreisv.meter.repository.MeterReadingRepository;
-import com.ghandreisv.meter.repository.MeterRepository;
+import com.ghandreisv.meter.service.client.Client;
+import com.ghandreisv.meter.service.meter.Meter;
+import com.ghandreisv.meter.service.meter.MeterRepository;
+import com.ghandreisv.meter.service.meterreading.MeterReadingRepository;
 import com.ghandreisv.meter.util.IdentityProvider;
 import org.springframework.stereotype.Component;
 
@@ -38,8 +37,4 @@ public class ReadingByClientHandler extends MeterReadingHandlerImpl {
                 .orElseThrow(() -> new EntityNotFoundException(clientId, Client.ENTITY_TYPE, Meter.ENTITY_TYPE));
     }
 
-    @Override
-    protected Function<MeterReadingDto, String> getSourceEntityIdProvider() {
-        return MeterReadingDto::getClientId;
-    }
 }

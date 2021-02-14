@@ -1,17 +1,17 @@
-package com.ghandreisv.meter.api.handlers;
+package com.ghandreisv.meter.service.meterreading.handlers;
 
-import com.ghandreisv.meter.api.dto.MeterReadingDto;
-import com.ghandreisv.meter.model.Meter;
-import com.ghandreisv.meter.model.MeterReading;
-import com.ghandreisv.meter.repository.MeterReadingRepository;
-import com.ghandreisv.meter.repository.MeterRepository;
+import com.ghandreisv.meter.service.meter.Meter;
+import com.ghandreisv.meter.service.meter.MeterRepository;
+import com.ghandreisv.meter.service.meterreading.MeterReading;
+import com.ghandreisv.meter.service.meterreading.MeterReadingRepository;
 import com.ghandreisv.meter.util.IdentityProvider;
+import org.springframework.validation.annotation.Validated;
 
 import java.time.LocalDate;
-import java.util.Optional;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
 
+@Validated
 public abstract class MeterReadingHandlerImpl implements MeterReadingHandler {
 
     private final IdentityProvider<String> identityProvider;
@@ -26,30 +26,21 @@ public abstract class MeterReadingHandlerImpl implements MeterReadingHandler {
         this.meterReadingRepository = meterReadingRepository;
     }
 
-    protected abstract Function<MeterReadingDto, String> getSourceEntityIdProvider();
-
     protected abstract BiConsumer<String, LocalDate> getReadingExistenceValidator();
 
     protected abstract Function<String, Meter> getMeterFinder();
 
     @Override
-    public String handle(MeterReadingDto meterReadingDto) {
-        String sourceEntityId = getSourceEntityId(meterReadingDto);
-        getReadingExistenceValidator().accept(sourceEntityId, meterReadingDto.getYearMonth().atDay(1));
-        Meter meter = getMeterFinder().apply(sourceEntityId);
+    public String handle(String id, LocalDate date, Long value) {
+        getReadingExistenceValidator().accept(id, date);
+        Meter meter = getMeterFinder().apply(id);
         MeterReading meterReading = new MeterReading(
                 identityProvider.createIdentity(),
                 meter,
-                meterReadingDto.getYearMonth().atDay(1),
-                meterReadingDto.getValue()
+                date,
+                value
         );
         return meterReadingRepository.save(meterReading).getId();
-    }
-
-    private String getSourceEntityId(MeterReadingDto meterReadingDto) {
-        return Optional.ofNullable(meterReadingDto)
-                .map(getSourceEntityIdProvider())
-                .orElseThrow(() -> new IllegalArgumentException("Source entity identifier must not be null"));
     }
 
 }

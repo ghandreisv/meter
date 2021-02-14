@@ -2,19 +2,24 @@ package com.ghandreisv.meter.model.projection;
 
 import com.ghandreisv.meter.model.MonthlyRecordProjection;
 
-import java.time.LocalDate;
+import java.time.Month;
 
 public class MonthlyRecordProjectionFixture {
 
-    public static MonthlyRecordProjection withDateAndTotal(LocalDate date, Long total) {
+    public static MonthlyRecordProjection withDateAndTotal(Integer year, Month month, Long total) {
         return new MonthlyRecordProjection() {
             @Override
-            public LocalDate getDate() {
-                return date;
+            public Integer getYear() {
+                return year;
             }
 
             @Override
-            public Long getTotal() {
+            public Month getMonth() {
+                return month;
+            }
+
+            @Override
+            public Long getValue() {
                 return total;
             }
         };

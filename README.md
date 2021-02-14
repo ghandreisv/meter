@@ -60,7 +60,7 @@ The solution is build as a Spring Boot application:
 ```json5
 {
   "addressId":"0ad46436-532d-4bfb-92e6-654e036b6cda",
-  "yearMonth":"2021-02",
+  "date":"2021-02-05",
   "value": 11
 }
 ```

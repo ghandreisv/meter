@@ -1,6 +1,5 @@
-package com.ghandreisv.meter.repository;
+package com.ghandreisv.meter.service.meter;
 
-import com.ghandreisv.meter.model.Meter;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;

@@ -6,7 +6,6 @@ import com.ghandreisv.meter.model.MonthlyRecordProjection;
 import com.ghandreisv.meter.model.projection.MonthlyRecordProjectionFixture;
 import org.junit.jupiter.api.Test;
 
-import java.time.LocalDate;
 import java.time.Month;
 import java.time.Year;
 import java.util.Arrays;
@@ -33,13 +32,14 @@ class DetailedYearlyReportCreatorTest {
 
     @Test
     public void createNonEmptyReport() {
-        LocalDate monthDate = LocalDate.of(2021, 1, 1);
-        MonthlyRecordDto expected1 = new MonthlyRecordDto(monthDate.getMonth(), 777L);
-        LocalDate monthDate2 = LocalDate.of(2021, 2, 1);
-        MonthlyRecordDto expected2 = new MonthlyRecordDto(monthDate2.getMonth(), 999L);
+        int year = 2021;
+        Month month1 = Month.JANUARY;
+        MonthlyRecordDto expected1 = new MonthlyRecordDto(month1, 777L);
+        Month month2 = Month.FEBRUARY;
+        MonthlyRecordDto expected2 = new MonthlyRecordDto(month2, 999L);
         List<MonthlyRecordProjection> records = Arrays.asList(
-                MonthlyRecordProjectionFixture.withDateAndTotal(monthDate, expected1.getValue()),
-                MonthlyRecordProjectionFixture.withDateAndTotal(monthDate2, expected2.getValue())
+                MonthlyRecordProjectionFixture.withDateAndTotal(year, month1, expected1.getValue()),
+                MonthlyRecordProjectionFixture.withDateAndTotal(year, month2, expected2.getValue())
         );
 
         DetailedYearlyReportDto report = reportCreator.createReport(Year.of(2021), records);

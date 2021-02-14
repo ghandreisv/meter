@@ -1,8 +1,9 @@
 package com.ghandreisv.meter.model;
 
-import java.time.LocalDate;
+import java.time.Month;
 
 public interface MonthlyRecordProjection {
-     LocalDate getDate();
-     Long getTotal();
+     Integer getYear();
+     Month getMonth();
+     Long getValue();
 }

@@ -1,5 +1,6 @@
-package com.ghandreisv.meter.model;
+package com.ghandreisv.meter.service.meterreading;
 
+import com.ghandreisv.meter.service.meter.Meter;
 import lombok.*;
 
 import javax.persistence.*;
