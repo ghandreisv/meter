@@ -12,7 +12,7 @@ CREATE TABLE CLIENTS
     id         VARCHAR(36) PRIMARY KEY,
     first_name VARCHAR(64),
     last_name  VARCHAR(64),
-    address_id VARCHAR(36),
+    address_id VARCHAR(36) NOT NULL,
     CONSTRAINT UQ_CLIENTS_ADDRESS UNIQUE (address_id),
     CONSTRAINT FK_CLIENTS_ADDRESS_ID FOREIGN KEY (address_id)
         REFERENCES ADDRESSES (id)
@@ -21,7 +21,7 @@ CREATE TABLE CLIENTS
 CREATE TABLE METERS
 (
     id         VARCHAR(36) PRIMARY KEY,
-    address_id VARCHAR(36),
+    address_id VARCHAR(36) NOT NULL,
     CONSTRAINT UQ_METERS_ADDRESS UNIQUE (address_id),
     CONSTRAINT FK_METERS_ADDRESS_ID FOREIGN KEY (address_id)
         REFERENCES ADDRESSES (id)
@@ -29,9 +29,10 @@ CREATE TABLE METERS
 
 CREATE TABLE METER_READINGS
 (
-    id       VARCHAR(36) PRIMARY KEY,
-    meter_id VARCHAR(36),
-    date     DATE,
-    value    NUMBER,
-    CONSTRAINT UQ_METER_DATE UNIQUE (meter_id, date)
+    id         VARCHAR(36) PRIMARY KEY,
+    meter_id   VARCHAR(36) NOT NULL,
+    date       DATE        NOT NULL,
+    year_month DATE AS DATEADD(DAY, - DAY (date) + 1, date),
+    value      NUMBER      NOT NULL,
+    CONSTRAINT UQ_METER_YEAR_MONTH UNIQUE (meter_id, year_month)
 );

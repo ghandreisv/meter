@@ -28,7 +28,7 @@ public interface MeterReadingRepository extends CrudRepository<MeterReading, Str
     boolean existsByAddressAndDate(String addressId, LocalDate date);
 
     @Query("SELECT year(mr.date) as year, (month(mr.date)-1) as month, SUM(mr.value) as value" +
-            " FROM MeterReading mr WHERE mr.date between :#{#year.atDay(1)} and :#{#year.atDay(#year.length())} GROUP BY year(mr.date),(month(mr.date)-1)")
+            " FROM MeterReading mr WHERE mr.date between :#{#year.atDay(1)} and :#{#year.atDay(#year.length())} GROUP BY year(mr.date), (month(mr.date)-1)")
     List<MonthlyRecordProjection> getYearlyRecords(@Param("year") Year year);
 
     @Query("SELECT year(mr.date) as year, (month(mr.date)-1) as month, SUM(mr.value) as value" +
