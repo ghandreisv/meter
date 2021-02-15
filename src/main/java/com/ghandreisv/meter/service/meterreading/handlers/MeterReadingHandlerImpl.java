@@ -4,7 +4,6 @@ import com.ghandreisv.meter.service.meter.Meter;
 import com.ghandreisv.meter.service.meter.MeterRepository;
 import com.ghandreisv.meter.service.meterreading.MeterReading;
 import com.ghandreisv.meter.service.meterreading.MeterReadingRepository;
-import com.ghandreisv.meter.util.IdentityProvider;
 import org.springframework.validation.annotation.Validated;
 
 import java.time.LocalDate;
@@ -14,14 +13,11 @@ import java.util.function.Function;
 @Validated
 public abstract class MeterReadingHandlerImpl implements MeterReadingHandler {
 
-    private final IdentityProvider<String> identityProvider;
     protected final MeterRepository meterRepository;
     protected final MeterReadingRepository meterReadingRepository;
 
-    public MeterReadingHandlerImpl(IdentityProvider<String> identityProvider,
-                                   MeterRepository meterRepository,
+    public MeterReadingHandlerImpl(MeterRepository meterRepository,
                                    MeterReadingRepository meterReadingRepository) {
-        this.identityProvider = identityProvider;
         this.meterRepository = meterRepository;
         this.meterReadingRepository = meterReadingRepository;
     }
@@ -34,12 +30,7 @@ public abstract class MeterReadingHandlerImpl implements MeterReadingHandler {
     public String handle(String id, LocalDate date, Long value) {
         getReadingExistenceValidator().accept(id, date);
         Meter meter = getMeterFinder().apply(id);
-        MeterReading meterReading = new MeterReading(
-                identityProvider.createIdentity(),
-                meter,
-                date,
-                value
-        );
+        MeterReading meterReading = new MeterReading(meter, date, value);
         return meterReadingRepository.save(meterReading).getId();
     }
 
