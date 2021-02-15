@@ -3,6 +3,7 @@ package com.ghandreisv.meter.api.errorhandling;
 import com.ghandreisv.meter.api.dto.ErrorDto;
 import com.ghandreisv.meter.api.exceptions.EntityNotFoundException;
 import com.ghandreisv.meter.api.exceptions.MeterReadingAlreadyExistsException;
+import com.ghandreisv.meter.api.exceptions.ValidationException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpHeaders;
@@ -34,8 +35,8 @@ public class RestResponseExceptionHandler extends ResponseEntityExceptionHandler
         return ResponseEntity.badRequest().body(new ErrorDto(exception.getMessage()));
     }
 
-    @ExceptionHandler(IllegalArgumentException.class)
-    public ResponseEntity<ErrorDto> handleIllegalArgumentException(IllegalArgumentException exception) {
+    @ExceptionHandler(ValidationException.class)
+    public ResponseEntity<ErrorDto> handleValidationException(ValidationException exception) {
         return ResponseEntity.badRequest().body(new ErrorDto(exception.getMessage()));
     }
 

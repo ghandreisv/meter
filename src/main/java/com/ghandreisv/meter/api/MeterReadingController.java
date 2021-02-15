@@ -1,6 +1,7 @@
 package com.ghandreisv.meter.api;
 
 import com.ghandreisv.meter.api.dto.MeterReadingDto;
+import com.ghandreisv.meter.api.exceptions.ValidationException;
 import com.ghandreisv.meter.service.MeterReadingService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -38,7 +39,7 @@ public class MeterReadingController {
                     meterReadingDto.getDate(),
                     meterReadingDto.getValue());
         } else {
-            throw new IllegalArgumentException("No suitable meter reading id found, expected at least one meter, address or client: "
+            throw new ValidationException("No suitable meter reading id found, expected at least one meter, address or client: "
                     + meterReadingDto);
         }
         return result;
