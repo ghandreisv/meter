@@ -7,7 +7,7 @@ import java.util.List;
 
 @Getter
 public class DetailedYearlyReportDto extends YearlyReportDto{
-    List<MonthlyRecordDto> monthly;
+    private final List<MonthlyRecordDto> monthly;
 
     public DetailedYearlyReportDto(Year year, Long total, List<MonthlyRecordDto> monthly) {
         super(year, total);
