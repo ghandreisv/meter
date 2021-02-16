@@ -31,7 +31,7 @@ class ReportServiceTest {
     private ReportService reportService;
 
     private final Year year = Year.of(2021);
-    private final Month month = Month.JANUARY;
+    private final Integer month = Month.JANUARY.getValue();
     private final MonthlyRecordProjection expectedRecord = MonthlyRecordProjectionFixture.withDateAndTotal(year.getValue(), month, 123L);
 
 
@@ -51,7 +51,7 @@ class ReportServiceTest {
         when(meterReadingRepository.getMonthlyRecord(YearMonth.of(year.getValue(), month)))
                 .thenReturn(Optional.of(expectedRecord));
 
-        Optional<MonthlyRecordProjection> monthlyReport = reportService.getMonthlyReport(year, month);
+        Optional<MonthlyRecordProjection> monthlyReport = reportService.getMonthlyReport(year, Month.of(month));
 
         assertTrue(monthlyReport.isPresent());
         assertEquals(expectedRecord, monthlyReport.get());

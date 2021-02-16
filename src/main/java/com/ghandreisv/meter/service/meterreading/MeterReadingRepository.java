@@ -27,11 +27,11 @@ public interface MeterReadingRepository extends CrudRepository<MeterReading, Str
             "WHERE mr.meter=m AND month(mr.date)=month(:date) AND year(mr.date)=year(:date) AND m.address=a AND a.id=:addressId")
     boolean existsByAddressAndDate(String addressId, LocalDate date);
 
-    @Query("SELECT year(mr.date) as year, (month(mr.date)-1) as month, SUM(mr.value) as value" +
-            " FROM MeterReading mr WHERE mr.date between :#{#year.atDay(1)} and :#{#year.atDay(#year.length())} GROUP BY year(mr.date), (month(mr.date)-1)")
+    @Query("SELECT year(mr.date) as year, (month(mr.date)) as month, SUM(mr.value) as value" +
+            " FROM MeterReading mr WHERE mr.date between :#{#year.atDay(1)} and :#{#year.atDay(#year.length())} GROUP BY year(mr.date), (month(mr.date))")
     List<MonthlyRecordProjection> getYearlyRecords(@Param("year") Year year);
 
-    @Query("SELECT year(mr.date) as year, (month(mr.date)-1) as month, SUM(mr.value) as value" +
-            " FROM MeterReading mr WHERE mr.date between :#{#yearMonth.atDay(1)} and :#{#yearMonth.atDay(#yearMonth.lengthOfMonth())} group by year(mr.date), (month(mr.date)-1)")
+    @Query("SELECT year(mr.date) as year, (month(mr.date)) as month, SUM(mr.value) as value" +
+            " FROM MeterReading mr WHERE mr.date between :#{#yearMonth.atDay(1)} and :#{#yearMonth.atDay(#yearMonth.lengthOfMonth())} group by year(mr.date), (month(mr.date))")
     Optional<MonthlyRecordProjection> getMonthlyRecord(@Param("yearMonth") YearMonth yearMonth);
 }

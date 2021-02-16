@@ -44,7 +44,7 @@ class ReportControllerTest {
     private ObjectMapper objectMapper;
 
     private final Year year = Year.of(2021);
-    private final Month month = Month.JANUARY;
+    private final Integer month = Month.JANUARY.getValue();
 
     @Test
     void should_get_yearly_detailed_report() throws Exception {
@@ -65,7 +65,7 @@ class ReportControllerTest {
     void should_get_yearly_detailed_report_detailed() throws Exception {
         MonthlyRecordProjection monthlyRecordProjection = withDateAndTotal(year.getValue(), month, 11L);
         List<MonthlyRecordProjection> recordProjections = Collections.singletonList(monthlyRecordProjection);
-        List<MonthlyRecordDto> monthlyRecordDtos = Collections.singletonList(new MonthlyRecordDto(month, monthlyRecordProjection.getValue()));
+        List<MonthlyRecordDto> monthlyRecordDtos = Collections.singletonList(new MonthlyRecordDto(Month.of(month), monthlyRecordProjection.getValue()));
         DetailedYearlyReportDto expected = new DetailedYearlyReportDto(year, monthlyRecordProjection.getValue(), monthlyRecordDtos);
 
         when(reportService.getYearlyReport(year))
@@ -80,9 +80,9 @@ class ReportControllerTest {
     @Test
     void should_get_monthly_report() throws Exception {
         MonthlyRecordProjection monthlyRecordProjection = withDateAndTotal(year.getValue(), month, 11L);
-        MonthlyReportDto expected = new MonthlyReportDto(year, month, monthlyRecordProjection.getValue());
+        MonthlyReportDto expected = new MonthlyReportDto(year, Month.of(month), monthlyRecordProjection.getValue());
 
-        when(reportService.getMonthlyReport(year, month))
+        when(reportService.getMonthlyReport(year, Month.of(month)))
                 .thenReturn(Optional.of(monthlyRecordProjection));
 
         mockMvc.perform(get("/reports/monthly?year="+year + "&month=" + month))

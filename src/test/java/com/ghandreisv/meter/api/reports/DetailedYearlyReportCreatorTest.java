@@ -38,8 +38,8 @@ class DetailedYearlyReportCreatorTest {
         Month month2 = Month.FEBRUARY;
         MonthlyRecordDto expected2 = new MonthlyRecordDto(month2, 999L);
         List<MonthlyRecordProjection> records = Arrays.asList(
-                MonthlyRecordProjectionFixture.withDateAndTotal(year, month1, expected1.getValue()),
-                MonthlyRecordProjectionFixture.withDateAndTotal(year, month2, expected2.getValue())
+                MonthlyRecordProjectionFixture.withDateAndTotal(year, month1.getValue(), expected1.getValue()),
+                MonthlyRecordProjectionFixture.withDateAndTotal(year, month2.getValue(), expected2.getValue())
         );
 
         DetailedYearlyReportDto report = reportCreator.createReport(Year.of(2021), records);

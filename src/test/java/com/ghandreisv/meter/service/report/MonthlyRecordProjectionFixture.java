@@ -1,10 +1,8 @@
 package com.ghandreisv.meter.service.report;
 
-import java.time.Month;
-
 public class MonthlyRecordProjectionFixture {
 
-    public static MonthlyRecordProjection withDateAndTotal(Integer year, Month month, Long total) {
+    public static MonthlyRecordProjection withDateAndTotal(Integer year, Integer month, Long total) {
         return new MonthlyRecordProjection() {
             @Override
             public Integer getYear() {
@@ -12,7 +10,7 @@ public class MonthlyRecordProjectionFixture {
             }
 
             @Override
-            public Month getMonth() {
+            public Integer getMonth() {
                 return month;
             }
 

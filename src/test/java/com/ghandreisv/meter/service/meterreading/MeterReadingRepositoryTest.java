@@ -73,7 +73,7 @@ class MeterReadingRepositoryTest {
         Optional<MonthlyRecordProjection> monthlyReport = meterReadingRepository.getMonthlyRecord(yearMonth);
         assertTrue(monthlyReport.isPresent());
         assertEquals(yearMonth.getYear(), monthlyReport.get().getYear());
-        assertEquals(yearMonth.getMonth(), monthlyReport.get().getMonth());
+        assertEquals(yearMonth.getMonth().getValue(), monthlyReport.get().getMonth());
         assertEquals(15, monthlyReport.get().getValue());
     }
 
